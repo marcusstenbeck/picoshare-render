@@ -1,19 +1,12 @@
-version: '2'
 services:
-  picoshare:
-    environment:
-      - PORT=3001
-    ports:
-      - 80:3001
-    volumes:
-      - picoshare:/data
-    container_name: picoshare
-    image: mtlynch/picoshare:latest
-
-volumes:
-  picoshare:
-  
-networks:
-  default:
-    external:
-      name: VLAN  
+  - type: web
+    name: picoshare
+    env: docker
+    repo: https://github.com/mtlynch/picoshare
+    envVars:
+      - key: PORT
+        value: 3001
+    healthCheckPath: /
+    disk:
+      name: data
+      mountPath: /data
